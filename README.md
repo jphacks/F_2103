@@ -47,6 +47,7 @@
 * 手がカメラの検出範囲内にないときは、いつも通りマウスを操作することが可能です
 
 ### 解決出来ること
+感染症拡大防止策をとりながらのデバイス操作が可能になる
 
 ### 使い方
 以下のリンクからzipファイルをダウンロードして解凍し、フォルダ内の**main.exe**を実行するだけで簡単に利用できます。
@@ -77,6 +78,8 @@ https://www.dropbox.com/s/olor5fjmqw04mxz/main.zip?dl=0
 
 ## 開発技術
 ### 活用した技術
+#### API・データ
+* [学習済みモデル](http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2)（顔のランドマーク検出用）
 
 #### フレームワーク・ライブラリ・モジュール
 * [MediaPipe](https://google.github.io/mediapipe/)
