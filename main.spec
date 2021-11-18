@@ -3,9 +3,8 @@
 
 block_cipher = None
 
-
 a = Analysis(['main.py'],
-             pathex=['{YOUR PATH TO CURRENT FOLDER}', '{YOUR PATH TO "cv2"}'],
+             pathex=['C:\\Programming\\JPHACKS2021\\F_2103-master','C:\\Users\\kitsu\\AppData\\Local\\Programs\\Python\\Python37\\Lib\\site-packages\\cv2'],
              binaries=[],
              datas=[],
              hiddenimports=[],
@@ -17,21 +16,21 @@ a = Analysis(['main.py'],
              win_private_assemblies=False,
              cipher=block_cipher,
              noarchive=False)
+pyz = PYZ(a.pure, a.zipped_data,
+             cipher=block_cipher)
 a.datas += [('click.png', '.\\click.png', 'DATA'),
                 ('move.png', '.\\move.png', 'DATA'),
                 ('scroll.png', '.\\scroll.png', 'DATA'),
                 ('shape_predictor_68_face_landmarks.dat', '.\\shape_predictor_68_face_landmarks.dat', 'DATA'),
+                ('ML\\gesture_classifier.tflite', '.\\ML\\gesture_classifier.tflite', 'DATA'),
                 ('Blicky.ico', '.\\Blicky.ico', 'DATA'),
-                ('{YOUR PATH TO "mediapipe\\modules"}', '.\\mediapipe\\modules', 'DATA'),
+                ('C:\\Users\\kitsu\\AppData\\Local\\Programs\\Python\\Python37\\Lib\\site-packages\\mediapipe\\modules', '.\\mediapipe\\modules', 'DATA'),
                 ]
-pyz = PYZ(a.pure, a.zipped_data,
-             cipher=block_cipher)
-
 exe = EXE(pyz,
           a.scripts, 
           [],
           exclude_binaries=True,
-          name='main',
+          name='Blicky',
           debug=False,
           bootloader_ignore_signals=False,
           strip=False,

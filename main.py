@@ -7,6 +7,7 @@ import sys
 import HandTrackingModule as htm
 import EyeTrackingModule as etm
 import time
+from collections import deque
 
 
 def resource_path(relative_path):
@@ -18,18 +19,26 @@ def resource_path(relative_path):
 def display_main():
 
     layout = [[sg.Text('リアルタイム映像', size=(40, 1),  font='メイリオ 22', justification='center', key='-status-')],
-              [sg.Text('カメラ番号: ', size=(8, 1)), sg.InputText(default_text='0', size=(4, 1), key='-camera_num-')],
+              [sg.Text('カメラ番号: ', size=(8, 1)), sg.InputText(default_text='0', size=(4, 1), key='-camera_num-'), sg.Button('ジェスチャー認識 ON/OFF', key='-gesture-')],
               [sg.Image(filename='', key='-image-')],
               [sg.Text('', key='-description-')],
               [sg.Button('開始', key='-start-'), sg.Button('停止', key='-stop-'), sg.Button('ホーム', key='-home-')]
               ]
 
     recording = False
+    gesture = False
 
     window = sg.Window('Blicky ―Hand&Eye Tracking Virtual Mouse―', layout=layout,  font='メイリオ', icon=resource_path('Blicky.ico'))
-
+    
+    previous_gesture = deque([])       # store gesture_id
+    cool_time = 30      # cool time(frames) for gesture recognition
+    gesture_accuracy = 0.8      # do action if the proportion of current gesture_id is higher than this value
+    
     while True:
         event, values = window.read(timeout=0)
+        if event == '-gesture-':
+            gesture = not gesture
+            
         if event in (None, '終了'):
             break
 
@@ -81,7 +90,7 @@ def display_main():
             if ret is True:
                 img = cv2.flip(img, 1)
                 img = detector.findHands(img)
-                lmList, point_history, bbox = detector.findPosition(img)
+                lmList, point_history, bbox, gesture_id = detector.findPosition(img, gesture=gesture)
 
                 # 2. Get the tip of the index and middle fingers
                 if len(lmList) != 0:
@@ -127,7 +136,21 @@ def display_main():
                             pg.scroll(int(5*length))
                         except Exception as e:
                             print(e)
+                    
+                    if gesture_id != -1:
+                        previous_gesture.append(gesture_id)
+                        if len(previous_gesture) >= cool_time:
+                            previous_gesture.popleft()
+                            # print(gesture_delay)
+                            if previous_gesture.count(gesture_id)/len(previous_gesture) >= gesture_accuracy:
+                                if gesture_id == 0:     # Heart
+                                    pg.write('I love JPHACKS2021.')
+                                elif gesture_id == 1:       # Triangle
+                                    screenshot = pg.screenshot()
+                                    screenshot.save('./screenshot.png')
+                                previous_gesture = deque([])
 
+                            
                 # 9. Either left or right eye are closed : Clicking Mode
                 ret, img2 = eyeDetector.findEyePosition(img)
                 if ret == [-1, -1]:
@@ -161,6 +184,8 @@ layout = [
     [sg.Image(filename=resource_path('click.png'), size=(330, 100), key='-img2-')],
     [sg.Text('▼ 上（下）スクロール：ピースサイン上向き（下向き）')],
     [sg.Image(filename=resource_path('scroll.png'), size=(330, 100), key='-img3-')],
+    [sg.Text('▼ 開発中①｜I love JPHACKS2021. と入力する：ハート💛を指で描く')],
+    [sg.Text('▼ 開発中②｜スクリーンショットをとる：三角形🔺を指で描く')],
     [sg.Button('はじめる', key='-start-')],
 ]
 
