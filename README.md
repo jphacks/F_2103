@@ -23,6 +23,9 @@
 | ------------- | ------------- | ------------- |
 |<img width="759" alt="cursor" src="https://user-images.githubusercontent.com/60843722/139424668-b5dbcf1f-faaa-4d98-8408-e40bcb909cba.png">|<img width="761" alt="click" src="https://user-images.githubusercontent.com/60843722/139424688-ad3a9855-ef18-4909-922e-427231fb18ac.png">|<img width="761" alt="scroll" src="https://user-images.githubusercontent.com/60843722/139424700-8e454074-7158-4976-9fca-11eb0485ef45.png">|
 
+* 指でハート💛を描く→"I love JPHACKS2021."とキーボード入力する
+* 指で三角形🔺を描く→スクリーンショットをとって保存する
+
 現在は、上記の3種類のマウス操作（と2種類のキーボード・スクリーン操作）に対応しています。 
 
 ### 特長
@@ -57,7 +60,7 @@
 
 【ver.0.0.0】https://www.dropbox.com/s/olor5fjmqw04mxz/main.zip?dl=0
 
-【ver.0.1.0】https://www.dropbox.com/s/vhqfiavno8wcvkf/Blicky.zip?dl=0 (最新版)
+【ver.0.1.0】https://www.dropbox.com/s/d4libyzb23275fl/updated_Blicky.zip?dl=0 (最新版)
 
 <div align="center">
 <img width="" alt="menu" src="https://user-images.githubusercontent.com/60843722/139415612-698816da-6fa8-41b5-b42e-f9fdb064296d.png">
